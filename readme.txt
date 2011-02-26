@@ -1,91 +1,97 @@
-***** Manbow-J Disassembler for Z80 Version 0.06 ******
+﻿***** Manbow-J Disassembler for Z80 Version 0.06 ******
 						Original Programd by Minachun
 						Reprogrammed by Manbow-J
 
-1. ���̃\�t�g�ɂ���
+1. このソフトについて
 
-	���̃\�t�g�́AMinachun�����6205�t�A�Z���u��������Z80�p�ɍ�蒼�������̂ł��B
-	�����Ƃ��āA
-	�E�o�͂����R�����g��SEGA MkIII/MasterSystem/GameGear�ɓ������Ă���B
-	�E�\�[�X�R�[�h���ꏏ�Ɍ��J����̂ŁAC/C++ �R���p�C���������Ă���
-	  �l�Ȃ�A�e�ՂɃR�����g�����J�X�^�}�C�Y�ł���B
+	このソフトは、Minachun氏作の6205逆アセンブラを元にZ80用に作り直したものです。
+	特徴として、
+	・出力されるコメントがSEGA MkIII/MasterSystem/GameGearに特化している。
+	・ソースコードも一緒に公開するので、C/C++ コンパイラを持っている
+	  人なら、容易にコメント等をカスタマイズできる。
 
-2. �����
+2. 動作環境
 
-	�����̎��s�t�@�C���́AWindows2000 �� �R�}���h�v�����v�g�œ�����m�F���Ă��܂��B
-	�܂��A���삳�������ʂɊւ��ẮA�����Ȃ�ꍇ�ɂ����Ă��ۏ؂͂������܂���
-	�̂ł����ӂ��B
+	同梱の実行ファイルは、Windows2000 の コマンドプロンプトで動作を確認しています。
+	また、動作させた結果に関しては、いかなる場合においても保証はいたしません
+	のでご注意を。
 
-3. �g����
+3. 使い方
 
-	��{�I�ɂ� md6502.exe �Ǝ����Ă���̂ŁA
+	基本的には md6502.exe と似せてあるので、
 	
-	>mdZ80 ���̓t�@�C�� �o�̓t�@�C��
+	>mdZ80 入力ファイル 出力ファイル
 	
-	�Ƃ���΁Amd6502.com �ł̏o�͂Ɏ������ʂ������邩�Ǝv���܂��B
-	�ȉ��̂悤�ȋ@�\������܂��B�w�肷�鐔���́A���ׂ� 16 �i���ł��肢����
-	���B
+	とすれば、md6502.com での出力に似た結果が得られるかと思います。
+	以下のような機能があります。指定する数字は、すべて 16 進数でお願いしま
+	す。
 	
 	Usage:mdZ80.exe [input file] [output file] [options]
-	[input file] : ���̓t�@�C����
-	[output file] : �o�̓t�@�C����
+	[input file] : 入力ファイル名
+	[output file] : 出力ファイル名
 	[options] :
-	    -s????...�t�A�Z���u���J�n�A�h���X���w�肷��B�f�t�H���g�́A�t�@�C��
-		     �̍Ōオ 0xffff �ƂȂ�悤�ɂ���B
-	    -l????...�t�A�Z���u������o�C�g�����w�肷��B�f�t�H���g�́A�t�@�C��
-		     ���ׂĂ�ǂݍ��ނ܂ŏo�͂���B
-	    -o????...�t�A�Z���u���J�n�I�t�Z�b�g���w�肷��B�f�t�H���g�́A
-		     �t�@�C���̐擪�A�܂� 0 �B
-	    -m??...�}�b�p�[�ԍ����w�肵�܂��B�f�t�H���g�ł́A�}�b�p�[�ʂ�
-		   �R�����g���o�͂��܂���B�ő�8�܂ŕ����̎w�肪�\�ł��B
-		   Ex) -m0 ... SegaMasterSystem�p�R�����g���o��
-	    -ni   ...���l���C���e���`��(0nnnnH)�ŏo�͂���B
-	    -nm   ...���l�����g���[���`��($nnnn)�ŏo�͂���B
-	    -nc   ...���l��C����`��(0xnnnn)�ŏo�͂���B
+	    -s????...逆アセンブル開始アドレスを指定する。デフォルトは、ファイル
+		     の最後が 0xffff となるようにする。
+	    -l????...逆アセンブルするバイト長を指定する。デフォルトは、ファイル
+		     すべてを読み込むまで出力する。
+	    -o????...逆アセンブル開始オフセットを指定する。デフォルトは、
+		     ファイルの先頭、つまり 0 。
+	    -m??...マッパー番号を指定します。デフォルトでは、マッパー別の
+		   コメントを出力しません。最大8つまで複数の指定が可能です。
+		   Ex) -m0 ... SegaMasterSystem用コメントを出力
+	    -ni   ...数値をインテル形式(0nnnnH)で出力する。
+	    -nm   ...数値をモトローラ形式($nnnn)で出力する。
+	    -nc   ...数値をC言語形式(0xnnnn)で出力する。
 
-	���Ȃ݂ɁA�P��
+	ちなみに、単に
 	>md6502
-	�Ƃ������s���Ă��A��L�Ɠ��l�ȏo�͂������܂��B
+	とだけ実行しても、上記と同様な出力が得られます。
 
-	�����_�ŃR�����g�o�͂ɑΉ����Ă���}�b�p�[�͈ȉ��̒ʂ�ł��B
+	現時点でコメント出力に対応しているマッパーは以下の通りです。
 
 	MapperNo.	Type
 	00(0)		Sega MkIII/MasterSystem/Game Gear
 
-4. �g�p�E�z�z����
+4. 使用・配布条件
 
-	��{�I��md6502�̃h�L�������g�ɏ������܂��B�ȉ�����
+	基本的にmd6502のドキュメントに準拠します。以下抜粋
 	------------------------------------------------------------------------
-	�S�������Ď��R�ł����A�� Minachun �ɕs���v���o�Ȃ��悤�ɂ��肢���܂��B
-	�Ĕz�z�����R�ł����A����ȊO�̋��K�̎��󂪂Ȃ��悤�ɂ��肢���܂��B
-	�\�[�X�R�[�h�̉��ς���щ��ς������̂��R���p�C���������s�t�@�C���̔z�z
-	�͎��R�Ɉ����Ă�����Ă��\���܂��񂪁A���Ɉ��e�����o�Ȃ��͈͂ł��肢��
-	�܂��B���悢���ς��Ȃ��������́A�����ɉ��ϓ��e�����񂭂�����Ɣ���
-	������܂��B
+	全くもって自由ですが、私 Minachun に不利益が出ないようにお願いします。
+	再配布も自由ですが、実費以外の金銭の授受がないようにお願いします。
+	ソースコードの改変および改変したものをコンパイルした実行ファイルの配布
+	は自由に扱ってもらっても構いませんが、私に悪影響が出ない範囲でお願いし
+	ます。よりよい改変をなさった方は、私宛に改変内容を御一報くださると非常に
+	助かります。
 	------------------------------------------------------------------------
-	�����܂ŁB
+	ここまで。
 
-5. ���̑�
-	���̃\�t�g�̌��J�ꏊ�͈ȉ��̒ʂ�ł��B
+5. その他
+	このソフトの公開場所は以下の通りです。
 	http://manbowj.hp.infoseek.co.jp/
-	�܂��A�s��A�v�]�Ȃǂ���܂�����ȉ��̃��[���A�h���X�܂ł��A�����������B
+	また、不具合、要望などありましたら以下のメールアドレスまでご連絡ください。
 	manbow-j@hamal.freemail.ne.jp
 
-6. ����
+6. 履歴
+	2011/xx/xx RuRuRu
+		MSXのコメントを追加。
+		PC-8801をサポート
+		IXL,IXH,IYL,IYH系の命令をサポート
+		割と使用される未公開インストラクションをサポート
+		幾つかのバグを修正。
 	2005/04/13 Version 0.06
-		MSX�̃}�b�p�[(�R�����g�o��)�ɑΉ��B
-		LD ($xxxx),de�̏o�͂��������������̂��C���B
+		MSXのマッパー(コメント出力)に対応。
+		LD ($xxxx),deの出力がおかしかったのを修正。
 	2005/04/13 Version 0.05
-                �A�h���X�ɑ΂��ẴR�����g��������悤�ɏC��(�}�b�p�[����)�B
+                アドレスに対してのコメントがつけられるように修正(マッパー周り)。
 	2005/04/13 Version 0.04
-		0xFF���A���ő������Ƃ��Ƀf�[�^�Ƃ݂Ȃ��X�C�b�`"-r"��ǉ��B
+		0xFFが連続で続いたときにデータとみなすスイッチ"-r"を追加。
 	2005/04/13 Version 0.03
-		Mapper0�ł�FM Unit�̃��W�X�^����̃R�����g���C���B
+		Mapper0でのFM Unitのレジスタ周りのコメントを修正。
 	2005/04/13 Version 0.02
-		���΃W�����v�n�̃A�h���X�v�Z���������������̂��C���B
+		相対ジャンプ系のアドレス計算がおかしかったのを修正。
 	2005/04/13 Version 0.01
-		di/ei�̃o�C�g�����Ԉ���Ă����̂��C���B
+		di/eiのバイト数が間違っていたのを修正。
 	2005/04/13 Version 0.00
-		���ŁB
+		初版。
 
 [EOF]
