@@ -100,7 +100,11 @@ char	*optype0[] = {
 	"de",
 	"hl",
 	"ix",
+	"ixl",
+	"ixh",
 	"iy",
+	"iyl",
+	"iyh",
 	"sp",
 
 	"(c)",
@@ -722,9 +726,9 @@ disZ80data disz80[7][256] = {
 		{  4, 2, NMT_LD,	2,	OT_REG_IX,	OT_IMM_WORD	,ACT_NL	},
 		{  4, 2, NMT_LD,	2,	OT_ABS,		OT_REG_IX	,ACT_WT	},
 		{  2, 0, NMT_INC,	1,	OT_REG_IX,	OT_NONE		,ACT_NL	},
+		{  2, 0, NMT_INC,	1,	OT_REG_IXH,	OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
-		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
-		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
+		{  3, 2, NMT_LD,	2,	OT_REG_IXH,	OT_IMM_BYTE	,ACT_NL	},	// IXH
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  2, 0, NMT_ADD,	2,	OT_REG_IX,	OT_REG_IX	,ACT_NL	},
@@ -788,7 +792,7 @@ disZ80data disz80[7][256] = {
 		// DD:60-6F
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
-		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
+		{  2, 0, NMT_LD,	2,	OT_REG_IXH,	OT_REG_D	,ACT_NL	},	// IXH
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
@@ -797,11 +801,11 @@ disZ80data disz80[7][256] = {
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
-		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
+		{  2, 0, NMT_LD,	2,	OT_REG_IXL,	OT_REG_E	,ACT_NL	},	// IXL
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  3, 2, NMT_LD,	2,	OT_REG_L,	OT_IDX_IX	,ACT_RD	},
-		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
+		{  2, 0, NMT_LD,	2,	OT_REG_IXL,	OT_REG_A	,ACT_NL	},	// IXL
 		// DD:70-7F
 		{  3, 2, NMT_LD,	2,	OT_IDX_IX,	OT_REG_B	,ACT_WT	},
 		{  3, 2, NMT_LD,	2,	OT_IDX_IX,	OT_REG_C	,ACT_WT	},
@@ -815,8 +819,8 @@ disZ80data disz80[7][256] = {
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
-		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
-		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
+		{  2, 0, NMT_LD,	2,	OT_REG_A,	OT_REG_IXH	,ACT_NL	},	// IXH
+		{  2, 0, NMT_LD,	2,	OT_REG_A,	OT_REG_IXL	,ACT_NL	},	// IXL
 		{  3, 2, NMT_LD,	2,	OT_REG_A,	OT_IDX_IX	,ACT_RD	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		// DD:80-8F
@@ -1028,7 +1032,7 @@ disZ80data disz80[7][256] = {
 		{  2, 0, NMT_IN,	2,	OT_REG_B,	OT_PORT_C	,ACT_IN	},
 		{  2, 0, NMT_OUT,	2,	OT_PORT_C,	OT_REG_B	,ACT_OT	},
 		{  2, 0, NMT_SBC,	2,	OT_REG_HL,	OT_REG_BC	,ACT_NL	},
-		{  4, 2, NMT_LD,	1,	OT_ABS,		OT_REG_BC	,ACT_WT	},
+		{  4, 2, NMT_LD,	2,	OT_ABS,		OT_REG_BC	,ACT_WT	},
 		{  2, 0, NMT_NEG,	0,	OT_NONE,	OT_NONE		,ACT_NL	},
 		{  2, 0, NMT_RETN,	0,	OT_NONE,	OT_NONE		,ACT_NL	},
 		{  2, 0, NMT_IM,	1,	OT_IM_0,	OT_NONE		,ACT_NL	},
@@ -1079,7 +1083,7 @@ disZ80data disz80[7][256] = {
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  2, 0, NMT_SBC,	2,	OT_REG_HL,	OT_REG_SP	,ACT_NL	},
-		{  2, 0, NMT_LD,	2,	OT_ABS,		OT_REG_SP	,ACT_WT	},
+		{  4, 2, NMT_LD,	2,	OT_ABS,		OT_REG_SP	,ACT_WT	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
@@ -1087,7 +1091,7 @@ disZ80data disz80[7][256] = {
 		{  2, 0, NMT_IN,	2,	OT_REG_A,	OT_PORT_C	,ACT_IN	},
 		{  2, 0, NMT_OUT,	2,	OT_PORT_C,	OT_REG_A	,ACT_OT	},
 		{  2, 0, NMT_ADC,	2,	OT_REG_HL,	OT_REG_SP	,ACT_NL	},
-		{  2, 0, NMT_LD,	2,	OT_REG_SP,	OT_ABS		,ACT_RD	},
+		{  4, 2, NMT_LD,	2,	OT_REG_SP,	OT_ABS		,ACT_RD	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
@@ -1278,7 +1282,7 @@ disZ80data disz80[7][256] = {
 		{  2, 0, NMT_DEC,	1,	OT_REG_IY,	OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
-		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
+		{  3, 2, NMT_LD,	2,	OT_REG_IYL,	OT_IMM_BYTE	,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		// FD:30-,ACT_NL	3F
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
@@ -1334,16 +1338,16 @@ disZ80data disz80[7][256] = {
 		// FD:60-6F
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
-		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
+		{  2, 0, NMT_LD,	2,	OT_REG_IYL,	OT_REG_E	,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  3, 2, NMT_LD,	2,	OT_REG_H,	OT_IDX_IY	,ACT_RD	},
+		{  2, 0, NMT_LD,	2,	OT_REG_IYH,	OT_REG_A	,ACT_NL	},	// IYH
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
-		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
-		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
+		{  2, 0, NMT_LD,	2,	OT_REG_IYH,	OT_REG_D	,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  3, 2, NMT_LD,	2,	OT_REG_L,	OT_IDX_IY	,ACT_RD	},
@@ -1361,8 +1365,8 @@ disZ80data disz80[7][256] = {
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
-		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
-		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
+		{  2, 0, NMT_LD,	2,	OT_REG_A,	OT_REG_IYH	,ACT_NL	},	// IYH
+		{  2, 0, NMT_LD,	2,	OT_REG_A,	OT_REG_IYL	,ACT_NL	},	// IYL
 		{  3, 2, NMT_LD,	2,	OT_REG_A,	OT_IDX_IY	,ACT_RD	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		// FD:80-8F
@@ -2120,10 +2124,34 @@ memargstr mapper_sms[] = {
 memargstr mapper_msx[] = {
 #ifdef MESSAGETYPE_JAPANESE
 /* Japanese */
+	{ 0x000C,0x000C,ACT_CL, " BIOS : RDSLT(SLOT/読み込み)"},
+	{ 0x0014,0x0014,ACT_CL, " BIOS : WRSLT(SLOT/書き込み)"},
+	{ 0x001C,0x001C,ACT_CL, " BIOS : CALSLT(SLOT/サブルーチンコール)"},
+	{ 0x0024,0x0024,ACT_CL, " BIOS : ENASLT(SLOT/有効化)"},
+	{ 0x0030,0x0030,ACT_CL, " BIOS : CALLF(他のスロットのルーチンの呼び出し)"},
+	{ 0x0041,0x0041,ACT_CL, " BIOS : DISSCR(スクリーン停止)"},
+	{ 0x0041,0x0044,ACT_CL, " BIOS : ENASCR(スクリーン有効)"},
+	{ 0x0047,0x0047,ACT_CL, " BIOS : WRTVDP(VDPレジスタ書き込み)"},
+	{ 0x004A,0x004A,ACT_CL, " BIOS : RDVRM(VRAM読み込み)"},
+	{ 0x004D,0x004D,ACT_CL, " BIOS : WRTVRM(VRAM書き込み)"},
+	{ 0x0059,0x0059,ACT_CL, " BIOS : LDIRMV(ブロック転送[VRAM->メモリ])"},
+	{ 0x005C,0x005C,ACT_CL, " BIOS : LDIRVM(ブロック転送[メモリ->VRAM])"},
+	{ 0x005F,0x005F,ACT_CL, " BIOS : CHGMOD(スクリーンモード変更)"},
+	{ 0x0062,0x0062,ACT_CL, " BIOS : CHGCLR(画面の色変更)"},
 	{ 0x0090,0x0090,ACT_CL, " BIOS : GICINI(PSG/演奏初期化)"},
-	{ 0x0093,0x0093,ACT_CL, " BIOS : WRTPSG(PSGレジスタ書き込み)"},
-	{ 0x0096,0x0096,ACT_CL, " BIOS : RDPSG (PSGレジスタ読み込み)"},
+	{ 0x0093,0x0093,ACT_CL, " BIOS : WRTPSG(PSG/レジスタ書き込み)"},
+	{ 0x0096,0x0096,ACT_CL, " BIOS : RDPSG (PSG/レジスタ読み込み)"},
 	{ 0x0098,0x0099,ACT_CL, " BIOS : STRTMS(バックグランド演奏開始)"},
+	{ 0x009C,0x009C,ACT_CL, " BIOS : CHSNS(キーボードバッファのチェック)"},
+	{ 0x00C0,0x00C0,ACT_CL, " BIOS : BEEP(ブザーを鳴らす)"},
+	{ 0x00D5,0x00D5,ACT_CL, " BIOS : GTSTCK(ジョイスティック状態の取得)"},
+	{ 0x00D8,0x00D8,ACT_CL, " BIOS : GTTRIG(トリガボタン状態の取得)"},
+	{ 0x0135,0x0135,ACT_CL, " BIOS : CHGSND(1bitサウンドポート状態変更)"},
+	{ 0x0138,0x0138,ACT_CL, " BIOS : RSLREG(基本SLOTレジスタ読み込み)"},
+	{ 0x013B,0x013B,ACT_CL, " BIOS : WSLREG(基本SLOTレジスタ書き込み)"},
+	{ 0x013E,0x013E,ACT_CL, " BIOS : RDVDP(VDPステータスレジスタ読み込み)"},
+	{ 0x0141,0x0141,ACT_CL, " BIOS : SNSMAT(キーボード・マトリクス読み込み)"},
+	{ 0x015F,0x015F,ACT_CL, " BIOS : EXTROM(SUB-ROMコール)"},
 
 	{ 0x9800,0x981f,ACT_RW, " SCC 波形メモリデータ0(ch.A)"},
 	{ 0x9820,0x983f,ACT_RW, " SCC 波形メモリデータ1(ch.B)"},
@@ -2136,6 +2164,9 @@ memargstr mapper_msx[] = {
 
 	{ 0x7c,0x7c,ACT_OT," FM-PACK (MSX MUSIC) アドレス Reg"},
 	{ 0x7d,0x7d,ACT_IO," FM-PACK (MSX MUSIC) データ Reg"},
+	{ 0x7e,0x7f,ACT_OT," MOON-BLASTER アドレス Reg"},
+	{ 0x7f,0x7f,ACT_IN," MOON-BLASTER ステータス Reg"},
+	{ 0x7f,0x7f,ACT_OT," MOON-BLASTER データ Reg"},
 	{ 0x80,0x80,ACT_IO," RS232C データ Reg"},
 	{ 0x81,0x81,ACT_IO," RS232C コマンド/ステータス Reg"},
 	{ 0x82,0x82,ACT_IO," RS232C CTS,Timer/Counter2,RI,CDフラグ / 設定 Reg"},
@@ -2166,6 +2197,12 @@ memargstr mapper_msx[] = {
 	{ 0xb8,0xbb,ACT_IO," SANYO ライトペンインタフェース Reg"},
 	{ 0xbc,0xbf,ACT_IO," VHD コントロール Reg"},
 	{ 0xc0,0xc1,ACT_IO," MSX Audio Reg"},
+	{ 0xc4,0xc4,ACT_IN," MOON-BLASTER ステータス Reg(Master)"},
+	{ 0xc4,0xc4,ACT_OT," MOON-BLASTER アドレス Reg(Master)"},
+	{ 0xc5,0xc5,ACT_OT," MOON-BLASTER データ Reg(Master)"},
+	{ 0xc6,0xc6,ACT_IN," MOON-BLASTER ステータス Reg(Slave)"},
+	{ 0xc6,0xc6,ACT_OT," MOON-BLASTER アドレス Reg(Slave)"},
+	{ 0xc7,0xc7,ACT_OT," MOON-BLASTER データ Reg(Slave)"},
 	{ 0xd0,0xd7,ACT_IO," 外部フロッピーコントロール Reg"},
 	{ 0xd8,0xdb,ACT_IO," 漢字ROM Reg"},
 	{ 0xf5,0xf5,ACT_IO," システムコントロール Reg"},
@@ -2228,13 +2265,33 @@ memargstr mapper_msx[] = {
 	{ 0xFFFF,0x0000,ACT_NL,NULL},
 };
 
+memargstr mapper_pc88[] = {
+	{ 0x31,0x31,ACT_OT," システムポート1"},
+	{ 0x32,0x32,ACT_IO," システムポート2"},
+	{ 0x40,0x40,ACT_IO," システムポート3"},
+	{ 0x44,0x44,ACT_IO," YM2203/2608 アドレス Reg"},
+	{ 0x45,0x45,ACT_IO," YM2203/2608 データ Reg"},
+	{ 0x44,0x46,ACT_IO," YM2608 アドレス Reg"},
+	{ 0x45,0x47,ACT_IO," YM2608 データ Reg"},
+	{ 0x5c,0x5c,ACT_IN," GVRAMステータス"},
+	{ 0x5c,0x5f,ACT_OT," GVRAM選択"},
+	{ 0x5c,0x70,ACT_OT," メモリウインドウオフセットアドレス"},
+	{ 0x88,0x88,ACT_IO," HAL研 響 : YM2151 アドレス Reg"},
+	{ 0x89,0x89,ACT_IO," HAL研 響 : YM2151 データ Reg"},
+	{ 0xa0,0xa1,ACT_IO," 8801-10 : AY8910 アドレス Reg"},
+	{ 0xa2,0xa3,ACT_IO," 8801-10 : AY8910 データ Reg"},
+	{ 0xe4,0xe4,ACT_OT," 8214モード割り込み制御"},
+	{ 0xe6,0xe6,ACT_OT," 8214モード割り込みマスク"},
+	{ 0xfc,0xff,ACT_IO," インテリジェントFDD"},
+};
+
 #define MAX_MAPPERS 8
 #define MAX_MAPPERNUMS 16
 
 memargstr *mapcom[MAX_MAPPERNUMS+1] = {
 	mapper_sms,					// 00 sega master system
 	mapper_msx,					// 01 MSX
-	mapper_undefined_com,		// 02
+	mapper_pc88			,		// 02 PC-8801
 	mapper_undefined_com,		// 03
 	mapper_undefined_com,		// 04
 	mapper_undefined_com,		// 05
@@ -2553,7 +2610,7 @@ int tablechk6502(uchar *buf,ulong base,ulong addr,char *stream)
 ------------------------------------------------------------------------------*/
 void printhelp( void )
 {
-	printf("Manbow-J Disassembler for Z80.  Version 0.06\n"
+	printf("Manbow-J Disassembler for Z80.  Version 0.06 + 01\n"
 	       "Original by Minachun Disassembler Version 0.04\n"
 	       "Usage:mdZ80.exe [input file] [output file] [options]\n"
 #ifdef MESSAGETYPE_JAPANESE
@@ -2569,6 +2626,8 @@ void printhelp( void )
 	       "            -m??...マッパー番号を指定します。デフォルトでは、マッパー別の\n"
 	       "                   コメントを出力しません。最大8つまで複数の指定が可能\です。\n"
 //	       "                   Ex) -m0 ... Sega Master System\n"
+//	       "                       -m1 ... MSX\n"
+//	       "                       -m2 ... PC-8801\n"
 	       "            -ni   ...数値をインテル形式(0nnnnH)で出力する。\n"
 	       "            -nm   ...数値をモトローラ形式($nnnn)で出力する。\n"
 	       "            -nc   ...数値をC言語形式(0xnnnn)で出力する。\n"
