@@ -787,7 +787,7 @@ disZ80data disz80[7][256] = {
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		{  2, 0, NMT_LD,	2,	OT_REG_E,	OT_REG_IXH	,ACT_NL	},
 		{  2, 0, NMT_LD,	2,	OT_REG_E,	OT_REG_IXL	,ACT_NL	},
-		{  3, 0, NMT_LD,	2,	OT_REG_E,	OT_IDX_IX	,ACT_RD	},
+		{  3, 2, NMT_LD,	2,	OT_REG_E,	OT_IDX_IX	,ACT_RD	},
 		{  1, 0, NMT_UND,	1,	OT_UND,		OT_NONE		,ACT_NL	},
 		// DD:60-6F
 		{  2, 0, NMT_LD,	2,	OT_REG_IXH,	OT_REG_B	,ACT_NL	},
@@ -2141,12 +2141,16 @@ memargstr mapper_msx[] = {
 	{ 0x005C,0x005C,ACT_CL, " BIOS : LDIRVM(ブロック転送[メモリ->VRAM])"},
 	{ 0x005F,0x005F,ACT_CL, " BIOS : CHGMOD(スクリーンモード変更)"},
 	{ 0x0062,0x0062,ACT_CL, " BIOS : CHGCLR(画面の色変更)"},
+	{ 0x0069,0x0069,ACT_CL, " BIOS : CLRSPR(スプライト初期化)"},
+	{ 0x0072,0x0072,ACT_CL, " BIOS : INIGRP(画面を高解像グラフィックに初期化)"},
 	{ 0x0090,0x0090,ACT_CL, " BIOS : GICINI(PSG/演奏初期化)"},
 	{ 0x0093,0x0093,ACT_CL, " BIOS : WRTPSG(PSG/レジスタ書き込み)"},
 	{ 0x0096,0x0096,ACT_CL, " BIOS : RDPSG (PSG/レジスタ読み込み)"},
 	{ 0x0098,0x0099,ACT_CL, " BIOS : STRTMS(バックグランド演奏開始)"},
 	{ 0x009C,0x009C,ACT_CL, " BIOS : CHSNS(キーボードバッファのチェック)"},
 	{ 0x00C0,0x00C0,ACT_CL, " BIOS : BEEP(ブザーを鳴らす)"},
+	{ 0x00C3,0x00C3,ACT_CL, " BIOS : CLS(画面クリア)"},
+	{ 0x00C6,0x00C6,ACT_CL, " BIOS : POSIT(カーソルの移動)"},
 	{ 0x00D5,0x00D5,ACT_CL, " BIOS : GTSTCK(ジョイスティック状態の取得)"},
 	{ 0x00D8,0x00D8,ACT_CL, " BIOS : GTTRIG(トリガボタン状態の取得)"},
 	{ 0x0135,0x0135,ACT_CL, " BIOS : CHGSND(1bitサウンドポート状態変更)"},
@@ -2154,8 +2158,10 @@ memargstr mapper_msx[] = {
 	{ 0x013B,0x013B,ACT_CL, " BIOS : WSLREG(基本SLOTレジスタ書き込み)"},
 	{ 0x013E,0x013E,ACT_CL, " BIOS : RDVDP(VDPステータスレジスタ読み込み)"},
 	{ 0x0141,0x0141,ACT_CL, " BIOS : SNSMAT(キーボード・マトリクス読み込み)"},
+	{ 0x0156,0x0156,ACT_CL, " BIOS : KILBUF(キーボード・バッファをクリア)"},
 	{ 0x015C,0x015C,ACT_CL, " BIOS : SUBROM(SUB-ROMコール)"},
 	{ 0x015F,0x015F,ACT_CL, " BIOS : EXTROM(SUB-ROMコール)"},
+	{ 0x0183,0x0183,ACT_CL, " BIOS : GETCPU(turboR)"},
 
 	{ 0x9800,0x981f,ACT_RW, " SCC 波形メモリデータ0(ch.A)"},
 	{ 0x9820,0x983f,ACT_RW, " SCC 波形メモリデータ1(ch.B)"},
@@ -2620,7 +2626,7 @@ int tablechk6502(uchar *buf,ulong base,ulong addr,char *stream)
 ------------------------------------------------------------------------------*/
 void printhelp( void )
 {
-	printf("Manbow-J Disassembler for Z80.  Version 0.06 + 01\n"
+	printf("Manbow-J Disassembler for Z80.  Version 0.06 + 02\n"
 	       "Original by Minachun Disassembler Version 0.04\n"
 	       "Usage:mdZ80.exe [input file] [output file] [options]\n"
 #ifdef MESSAGETYPE_JAPANESE
@@ -2634,7 +2640,7 @@ void printhelp( void )
 	       "            -o????...逆アセンブル開始オフセットを指定する。デフォルトは、\n"
 	       "                     ファイルの先頭、つまり 0 。\n"
 	       "            -m??...マッパー番号を指定します。デフォルトでは、マッパー別の\n"
-	       "                   コメントを出力しません。最大8つまで複数の指定が可能\です。\n"
+	       "                   コメントを出力しません。最大8つまで複数の指定が可能です。\n"
 //	       "                   Ex) -m0 ... Sega Master System\n"
 //	       "                       -m1 ... MSX\n"
 //	       "                       -m2 ... PC-8801\n"

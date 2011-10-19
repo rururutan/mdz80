@@ -74,7 +74,11 @@ enum {
 	OT_REG_DE,			// DE  Register
 	OT_REG_HL,			// HL  Register
 	OT_REG_IX,			// HL  Register
+	OT_REG_IXL,			// HL  Register
+	OT_REG_IXH,			// HL  Register
 	OT_REG_IY,			// HL  Register
+	OT_REG_IYL,			// HL  Register
+	OT_REG_IYH,			// HL  Register
 	OT_REG_SP,			// SP  Register
 
 	OT_PORT_C,			// É|Å[Ég		(C)
