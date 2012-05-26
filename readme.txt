@@ -1,6 +1,7 @@
-﻿***** Manbow-J Disassembler for Z80 Version 0.06 ******
+﻿***** Manbow-J Disassembler for Z80 Version 0.06 + 01 ******
 						Original Programd by Minachun
 						Reprogrammed by Manbow-J
+						Patched by RuRuRu
 
 1. このソフトについて
 
@@ -67,14 +68,12 @@
 
 5. その他
 	このソフトの公開場所は以下の通りです。
-	http://manbowj.hp.infoseek.co.jp/
-	また、不具合、要望などありましたら以下のメールアドレスまでご連絡ください。
-	manbow-j@hamal.freemail.ne.jp
+	http://vesta.dti.ne.jp/~tsato/
 
 6. 履歴
-	2011/xx/xx RuRuRu
-		MSXのコメントを追加。
-		PC-8801をサポート
+	2012/xx/xx RuRuRu
+		MSXのコメント出力を幾つか追加。
+		PC-8801のコメント出力をサポート。(-m2)
 		IXL,IXH,IYL,IYH系の命令をサポート
 		割と使用される未公開インストラクションをサポート
 		幾つかのバグを修正。
