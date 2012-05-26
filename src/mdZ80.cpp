@@ -796,7 +796,7 @@ disZ80data disz80[7][256] = {
 		{  2, 0, NMT_LD,	2,	OT_REG_IXH,	OT_REG_E	,ACT_NL	},
 		{  2, 0, NMT_LD,	2,	OT_REG_IXH,	OT_REG_IXH	,ACT_NL	},
 		{  2, 0, NMT_LD,	2,	OT_REG_IXH,	OT_REG_IXL	,ACT_NL	},
-		{  3, 2, NMT_LD,	2,	OT_REG_IXH,	OT_IDX_IX	,ACT_RD	},
+		{  3, 2, NMT_LD,	2,	OT_REG_H,	OT_IDX_IX	,ACT_RD	},
 		{  2, 0, NMT_LD,	2,	OT_REG_IXH,	OT_REG_A	,ACT_NL	},
 		{  2, 0, NMT_LD,	2,	OT_REG_IXH,	OT_REG_B	,ACT_NL	},
 		{  2, 0, NMT_LD,	2,	OT_REG_IXH,	OT_REG_C	,ACT_NL	},
@@ -804,7 +804,7 @@ disZ80data disz80[7][256] = {
 		{  2, 0, NMT_LD,	2,	OT_REG_IXL,	OT_REG_E	,ACT_NL	},
 		{  2, 0, NMT_LD,	2,	OT_REG_IXL,	OT_REG_IXH	,ACT_NL	},
 		{  2, 0, NMT_LD,	2,	OT_REG_IXL,	OT_REG_IXL	,ACT_NL	},
-		{  3, 2, NMT_LD,	2,	OT_REG_IXL,	OT_IDX_IX	,ACT_RD	},
+		{  3, 2, NMT_LD,	2,	OT_REG_L,	OT_IDX_IX	,ACT_RD	},
 		{  2, 0, NMT_LD,	2,	OT_REG_IXL,	OT_REG_A	,ACT_NL	},
 		// DD:70-7F
 		{  3, 2, NMT_LD,	2,	OT_IDX_IX,	OT_REG_B	,ACT_WT	},
@@ -1342,7 +1342,7 @@ disZ80data disz80[7][256] = {
 		{  2, 0, NMT_LD,	2,	OT_REG_IYH,	OT_REG_E	,ACT_NL	},
 		{  2, 0, NMT_LD,	2,	OT_REG_IYH,	OT_REG_IYH	,ACT_NL	},
 		{  2, 0, NMT_LD,	2,	OT_REG_IYH,	OT_REG_IYL	,ACT_NL	},
-		{  3, 2, NMT_LD,	2,	OT_REG_IYH,	OT_IDX_IY	,ACT_RD	},
+		{  3, 2, NMT_LD,	2,	OT_REG_H,	OT_IDX_IY	,ACT_RD	},
 		{  2, 0, NMT_LD,	2,	OT_REG_IYH,	OT_REG_A	,ACT_NL	},	// IYH
 		{  2, 0, NMT_LD,	2,	OT_REG_IYL,	OT_REG_B	,ACT_NL	},
 		{  2, 0, NMT_LD,	2,	OT_REG_IYL,	OT_REG_C	,ACT_NL	},
@@ -1350,7 +1350,7 @@ disZ80data disz80[7][256] = {
 		{  2, 0, NMT_LD,	2,	OT_REG_IYL,	OT_REG_E	,ACT_NL	},
 		{  2, 0, NMT_LD,	2,	OT_REG_IYL,	OT_REG_IYH	,ACT_NL	},
 		{  2, 0, NMT_LD,	2,	OT_REG_IYL,	OT_REG_IYL	,ACT_NL	},
-		{  3, 2, NMT_LD,	2,	OT_REG_IYL,	OT_IDX_IY	,ACT_RD	},
+		{  3, 2, NMT_LD,	2,	OT_REG_L,	OT_IDX_IY	,ACT_RD	},
 		{  2, 0, NMT_LD,	2,	OT_REG_IYL,	OT_REG_A	,ACT_NL	},
 		// FD:70-7F
 		{  3, 2, NMT_LD,	2,	OT_IDX_IY,	OT_REG_B	,ACT_WT	},
@@ -2407,7 +2407,7 @@ disZ80data *getOPdata( uchar *buf, ulong addr )
 int disasmZ80( uchar *buf, ulong base, ulong addr, char *stream, int sw, int nullcheck )
 {
 	disZ80data	*data;
-	int		i, st, n;
+	int		i, st;
 	int		*op_type;
 	char	temp[256];
 	int		ofs;
@@ -2677,7 +2677,7 @@ int main(int argc,char *argv[])
 {
 	FILE *f, *g;
 	uchar *buf;
-	ulong siz;
+	size_t siz;
 	ulong base, addr;
 	int	nullcheck = 0;
 	int i,j;
@@ -2804,7 +2804,7 @@ int main(int argc,char *argv[])
 			fprintf( stderr, "Can't write file : %s .\n", argv[2] );
 #endif
 		}
-		delete buf;
+		delete [] buf;
 	} else {
 #ifdef MESSAGETYPE_JAPANESE
 		fprintf( stderr, "入力ファイル %s が開けませんでした。\n", argv[1] );
