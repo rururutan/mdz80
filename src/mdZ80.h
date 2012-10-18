@@ -187,6 +187,7 @@ enum {
 	NMT_RRC,
 	NMT_RR,
 	NMT_SLA,
+	NMT_SLL,
 	NMT_SRA,
 	NMT_SRL,
 	NMT_RLD,
