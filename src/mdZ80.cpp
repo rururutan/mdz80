@@ -2412,7 +2412,7 @@ int disasmZ80( uchar *buf, ulong base, ulong addr, char *stream, int sw, int nul
 	int		*op_type;
 	char	temp[256];
 	int		ofs;
-	int		line;
+	size_t	line;
 	int		rel;
 	disZ80data NullData = { 0, 0, NMT_NUL, 0, OT_NUL, OT_NONE, ACT_NL };
 
@@ -2770,7 +2770,7 @@ int main(int argc,char *argv[])
 			i++;
 		}
 		// ベースアドレスの調整
-		if ( base == 0xffffffff ) base = 0x10000 - siz;
+		if ( base == 0xffffffff ) base = (ulong)(0x10000 - siz);
 		// メモリを確保して読み込む
 		buf = new uchar[siz+2];
 		fseek( f, j, SEEK_SET );
