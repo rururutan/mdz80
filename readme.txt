@@ -52,7 +52,8 @@
 
 	MapperNo.	Type
 	00(0)		Sega MkIII/MasterSystem/Game Gear
-	01(1)		PC-8801
+	01(1)		MSX
+	02(2)		PC-8801mk2SR
 
 4. 使用・配布条件
 
@@ -69,29 +70,29 @@
 
 5. その他
 	このソフトの公開場所は以下の通りです。
-	http://vesta.dti.ne.jp/~tsato/
+	https://github.com/rururutan/mdz80
 
 6. 履歴
-	2012/xx/xx RuRuRu
+	2012/12/22 RuRuRu
 		MSXのコメント出力を幾つか追加。
 		PC-8801のコメント出力をサポート。(-m2)
 		IXL,IXH,IYL,IYH系の命令をサポート。
 		未公開インストラクションをサポート。
 		幾つかのバグを修正。
-	2005/04/13 Version 0.06
+	2005/04/13 Version 0.06 Manbow-J
 		MSXのマッパー(コメント出力)に対応。
 		LD ($xxxx),deの出力がおかしかったのを修正。
-	2005/04/13 Version 0.05
-                アドレスに対してのコメントがつけられるように修正(マッパー周り)。
-	2005/04/13 Version 0.04
+	2005/04/13 Version 0.05 Manbow-J
+		アドレスに対してのコメントがつけられるように修正(マッパー周り)。
+	2005/04/13 Version 0.04 Manbow-J
 		0xFFが連続で続いたときにデータとみなすスイッチ"-r"を追加。
-	2005/04/13 Version 0.03
+	2005/04/13 Version 0.03 Manbow-J
 		Mapper0でのFM Unitのレジスタ周りのコメントを修正。
-	2005/04/13 Version 0.02
+	2005/04/13 Version 0.02 Manbow-J
 		相対ジャンプ系のアドレス計算がおかしかったのを修正。
-	2005/04/13 Version 0.01
+	2005/04/13 Version 0.01 Manbow-J
 		di/eiのバイト数が間違っていたのを修正。
-	2005/04/13 Version 0.00
+	2005/04/13 Version 0.00 Manbow-J
 		初版。
 
 [EOF]
