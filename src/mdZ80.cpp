@@ -2302,14 +2302,29 @@ memargstr mapper_pc88[] = {
 	{ 0xfc,0xff,ACT_IO," インテリジェントFDD"},
 };
 
+memargstr mapper_coleco[] = {
+	{ 0x0213,0x0213,ACT_CL, " BIOS : サウンド初期化"},
+	{ 0x025e,0x025e,ACT_CL, " BIOS : サウンドコード設定"},
+	{ 0x027f,0x027f,ACT_CL, " BIOS : サウンドコードプレイ1"},
+	{ 0x0300,0x0300,ACT_CL, " BIOS : サウンドコードプレイ2"},
+	{ 0x1ff4,0x1ff4,ACT_CL, " BIOS : サウンドコードプレイ1"},
+	{ 0x1f61,0x1f61,ACT_CL, " BIOS : サウンドコードプレイ2"},
+	{ 0x1ff1,0x1ff1,ACT_CL, " BIOS : サウンドコード設定"},
+	{ 0x1fee,0x1fee,ACT_CL, " BIOS : サウンド初期化"},
+
+	{ 0xff,0xff,ACT_OT," PSG データ書き込み Reg"},
+
+	{ 0xFFFF,0x0000,ACT_NL,NULL},
+};
+
 #define MAX_MAPPERS 8
 #define MAX_MAPPERNUMS 16
 
 memargstr *mapcom[MAX_MAPPERNUMS+1] = {
-	mapper_sms,					// 00 sega master system
+	mapper_sms,					// 00 SEGA Master System
 	mapper_msx,					// 01 MSX
-	mapper_pc88			,		// 02 PC-8801
-	mapper_undefined_com,		// 03
+	mapper_pc88			,		// 02 PC-8801 mkII SR
+	mapper_coleco,				// 03 Coleco Vision
 	mapper_undefined_com,		// 04
 	mapper_undefined_com,		// 05
 	mapper_undefined_com,		// 06
