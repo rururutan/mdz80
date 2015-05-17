@@ -2125,6 +2125,7 @@ memargstr mapper_sms[] = {
 memargstr mapper_msx[] = {
 #ifdef MESSAGETYPE_JAPANESE
 /* Japanese */
+	{ 0x0005,0x0005,ACT_CL, " DOS Call"},
 	{ 0x000C,0x000C,ACT_CL, " BIOS : RDSLT(SLOT/読み込み)"},
 	{ 0x0014,0x0014,ACT_CL, " BIOS : WRSLT(SLOT/書き込み)"},
 	{ 0x001C,0x001C,ACT_CL, " BIOS : CALSLT(SLOT/サブルーチンコール)"},
@@ -2163,6 +2164,7 @@ memargstr mapper_msx[] = {
 	{ 0x015C,0x015C,ACT_CL, " BIOS : SUBROM(SUB-ROMコール)"},
 	{ 0x015F,0x015F,ACT_CL, " BIOS : EXTROM(SUB-ROMコール)"},
 	{ 0x0183,0x0183,ACT_CL, " BIOS : GETCPU(turboR)"},
+	{ 0xf37d,0xf37d,ACT_CL, " Disk Basic"},
 
 	{ 0x9800,0x981f,ACT_RW, " SCC 波形メモリデータ0(ch.A)"},
 	{ 0x9820,0x983f,ACT_RW, " SCC 波形メモリデータ1(ch.B)"},
@@ -2221,10 +2223,12 @@ memargstr mapper_msx[] = {
 	{ 0xfc,0xff,ACT_IO," メモリーマッパー Reg"},
 #else
 /* English */
+	{ 0x0005,0x0005,ACT_CL, " DOS Call"},
 	{ 0x0090,0x0090,ACT_CL, " BIOS : GICINI(PSG/play initialize)"},
 	{ 0x0093,0x0093,ACT_CL, " BIOS : WRTPSG(PSG register write)"},
 	{ 0x0096,0x0096,ACT_CL, " BIOS : RDPSG (PSG register read)"},
 	{ 0x0098,0x0099,ACT_CL, " BIOS : STRTMS(background play start)"},
+	{ 0xf37d,0xf37d,ACT_CL, " Disk Basic"},
 
 	{ 0x9800,0x981f,ACT_RW, " SCC wave memory data 0(ch.A)"},
 	{ 0x9820,0x983f,ACT_RW, " SCC wave memory data 1(ch.B)"},
