@@ -2,7 +2,7 @@
 # Manbow-J Disassembler for Z80
 
 `mdz80` is Z80 disassembler.
-This software was rebuilt for Z80 based on Minachun's 6205 disassembler.
+This software was rebuilt for Z80 based on Minachun's 6502 disassembler.
 
 ## Usage
 
