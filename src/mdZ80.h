@@ -1,5 +1,5 @@
-#ifndef __MDZ80_H__
-#define __MDZ80_H__
+#ifndef MDZ80_H_
+#define MDZ80_H_
 
 /* If you comment out below semantic , this program outputs English Messages. */
 #define MESSAGETYPE_JAPANESE
@@ -221,4 +221,4 @@ enum {
 	C_LANG,
 };
 
-#endif/*__MDZ80_H__*/
+#endif/*MDZ80_H_*/
