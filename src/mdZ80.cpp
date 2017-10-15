@@ -1,7 +1,7 @@
 /*
  * Minachun Disassembler for Sega mkIII(SMS)
  *
- * Version 0.01 : md6502から改変
+ * (c) Manbow-J / RuRuRu
  */
 
 #include <stdio.h>
@@ -2177,9 +2177,9 @@ memargstr mapper_msx[] = {
 
 	{ 0x7c,0x7c,ACT_OT," FM-PACK (MSX MUSIC) アドレス Reg"},
 	{ 0x7d,0x7d,ACT_IO," FM-PACK (MSX MUSIC) データ Reg"},
-	{ 0x7e,0x7f,ACT_OT," MOON-BLASTER アドレス Reg"},
-	{ 0x7f,0x7f,ACT_IN," MOON-BLASTER ステータス Reg"},
-	{ 0x7f,0x7f,ACT_OT," MOON-BLASTER データ Reg"},
+	{ 0x7e,0x7f,ACT_OT," Moonblaster FM アドレス Reg"},
+	{ 0x7f,0x7f,ACT_IN," Moonblaster FM ステータス Reg"},
+	{ 0x7f,0x7f,ACT_OT," Moonblaster FM データ Reg"},
 	{ 0x80,0x80,ACT_IO," RS232C データ Reg"},
 	{ 0x81,0x81,ACT_IO," RS232C コマンド/ステータス Reg"},
 	{ 0x82,0x82,ACT_IO," RS232C CTS,Timer/Counter2,RI,CDフラグ / 設定 Reg"},
@@ -2210,12 +2210,12 @@ memargstr mapper_msx[] = {
 	{ 0xb8,0xbb,ACT_IO," SANYO ライトペンインタフェース Reg"},
 	{ 0xbc,0xbf,ACT_IO," VHD コントロール Reg"},
 	{ 0xc0,0xc1,ACT_IO," MSX Audio Reg"},
-	{ 0xc4,0xc4,ACT_IN," MOON-BLASTER ステータス Reg(Master)"},
-	{ 0xc4,0xc4,ACT_OT," MOON-BLASTER アドレス Reg(Master)"},
-	{ 0xc5,0xc5,ACT_OT," MOON-BLASTER データ Reg(Master)"},
-	{ 0xc6,0xc6,ACT_IN," MOON-BLASTER ステータス Reg(Slave)"},
-	{ 0xc6,0xc6,ACT_OT," MOON-BLASTER アドレス Reg(Slave)"},
-	{ 0xc7,0xc7,ACT_OT," MOON-BLASTER データ Reg(Slave)"},
+	{ 0xc4,0xc4,ACT_IN," Moonblaster PCM ステータス Reg(Master)"},
+	{ 0xc4,0xc4,ACT_OT," Moonblaster PCM アドレス Reg(Master)"},
+	{ 0xc5,0xc5,ACT_OT," Moonblaster PCM データ Reg(Master)"},
+	{ 0xc6,0xc6,ACT_IN," Moonblaster PCM ステータス Reg(Slave)"},
+	{ 0xc6,0xc6,ACT_OT," Moonblaster PCM アドレス Reg(Slave)"},
+	{ 0xc7,0xc7,ACT_OT," Moonblaster PCM データ Reg(Slave)"},
 	{ 0xd0,0xd7,ACT_IO," 外部フロッピーコントロール Reg"},
 	{ 0xd8,0xdb,ACT_IO," 漢字ROM Reg"},
 	{ 0xf5,0xf5,ACT_IO," システムコントロール Reg"},
@@ -2224,10 +2224,22 @@ memargstr mapper_msx[] = {
 #else
 /* English */
 	{ 0x0005,0x0005,ACT_CL, " DOS Call"},
+	{ 0x000C,0x000C,ACT_CL, " BIOS : RDSLT(SLOT/read)"},
+	{ 0x0014,0x0014,ACT_CL, " BIOS : WRSLT(SLOT/write)"},
+	{ 0x001C,0x001C,ACT_CL, " BIOS : CALSLT(SLOT/subroutine call)"},
+	{ 0x0020,0x0020,ACT_CL, " BIOS : DCOMPR(compare HL and DE)"},
+	{ 0x0024,0x0024,ACT_CL, " BIOS : ENASLT(SLOT/enable)"},
 	{ 0x0090,0x0090,ACT_CL, " BIOS : GICINI(PSG/play initialize)"},
 	{ 0x0093,0x0093,ACT_CL, " BIOS : WRTPSG(PSG register write)"},
 	{ 0x0096,0x0096,ACT_CL, " BIOS : RDPSG (PSG register read)"},
 	{ 0x0098,0x0099,ACT_CL, " BIOS : STRTMS(background play start)"},
+	{ 0x00C0,0x00C0,ACT_CL, " BIOS : BEEP"},
+	{ 0x00C3,0x00C3,ACT_CL, " BIOS : CLS"},
+	{ 0x00C6,0x00C6,ACT_CL, " BIOS : POSIT(move cursor)"},
+	{ 0x00D5,0x00D5,ACT_CL, " BIOS : GTSTCK(get stick status)"},
+	{ 0x00D8,0x00D8,ACT_CL, " BIOS : GTTRIG(get button status )"},
+	{ 0x0135,0x0135,ACT_CL, " BIOS : CHGSND(1bit sound port)"},
+	{ 0x0183,0x0183,ACT_CL, " BIOS : GETCPU(turboR)"},
 	{ 0xf37d,0xf37d,ACT_CL, " Disk Basic"},
 
 	{ 0x9800,0x981f,ACT_RW, " SCC wave memory data 0(ch.A)"},
@@ -2241,6 +2253,9 @@ memargstr mapper_msx[] = {
 
 	{ 0x7c,0x7c,ACT_OT," FM-PACK (MSX MUSIC) address Reg"},
 	{ 0x7d,0x7d,ACT_IO," FM-PACK (MSX MUSIC) data Reg"},
+	{ 0x7e,0x7f,ACT_OT," Moonblaster FM Address Reg"},
+	{ 0x7f,0x7f,ACT_IN," Moonblaster FM Status Reg"},
+	{ 0x7f,0x7f,ACT_OT," Moonblaster FM Data Reg"},
 	{ 0x80,0x80,ACT_IO," RS232C data Reg"},
 	{ 0x81,0x81,ACT_IO," RS232C command/status Reg"},
 	{ 0x82,0x82,ACT_IO," RS232C CTS,Timer/Counter2,RI,CD flag / setting Reg"},
@@ -2271,6 +2286,12 @@ memargstr mapper_msx[] = {
 	{ 0xb8,0xbb,ACT_IO," SANYO light pen interface Reg"},
 	{ 0xbc,0xbf,ACT_IO," VHD control Reg"},
 	{ 0xc0,0xc1,ACT_IO," MSX Audio Reg"},
+	{ 0xc4,0xc4,ACT_IN," Moonblaster PCM status Reg(Master)"},
+	{ 0xc4,0xc4,ACT_OT," Moonblaster PCM address Reg(Master)"},
+	{ 0xc5,0xc5,ACT_OT," Moonblaster PCM data Reg(Master)"},
+	{ 0xc6,0xc6,ACT_IN," Moonblaster PCM status Reg(Slave)"},
+	{ 0xc6,0xc6,ACT_OT," Moonblaster PCM address Reg(Slave)"},
+	{ 0xc7,0xc7,ACT_OT," Moonblaster PCM data Reg(Slave)"},
 	{ 0xd0,0xd7,ACT_IO," External floppy disk control Reg"},
 	{ 0xd8,0xdb,ACT_IO," KANJI ROM Reg"},
 	{ 0xf5,0xf5,ACT_IO," System control Reg"},
@@ -2291,7 +2312,10 @@ memargstr mapper_pc88[] = {
 	{ 0x45,0x47,ACT_IO," YM2608 拡張データ Reg"},
 	{ 0x5c,0x5c,ACT_IN," GVRAMステータス"},
 	{ 0x5c,0x5f,ACT_OT," GVRAM選択"},
-	{ 0x5c,0x70,ACT_OT," メモリウインドウオフセットアドレス"},
+	{ 0x60,0x68,ACT_IO," DMAC"},
+	{ 0x70,0x70,ACT_OT," メモリウインドウオフセットアドレス"},
+	{ 0x71,0x71,ACT_IO," 拡張ROMセレクト"},
+	{ 0x80,0x87,ACT_IO," HAL研 響 : YM3802 Reg"},
 	{ 0x88,0x88,ACT_IO," HAL研 響 : YM2151 アドレス Reg"},
 	{ 0x89,0x89,ACT_IO," HAL研 響 : YM2151 データ Reg"},
 	{ 0xa0,0xa1,ACT_IO," 8801-10 : AY8910 アドレス Reg"},
@@ -2435,7 +2459,7 @@ int disasmZ80( uchar *buf, ulong base, ulong addr, char *stream, int sw, int nul
 	int		rel;
 	disZ80data NullData = { 0, 0, NMT_NUL, 0, OT_NUL, OT_NONE, ACT_NL };
 
-	// outpu for address
+	// output for address
 	st = sprintf( stream, "%04X :", base+addr );
 	// get opdata structur
 	data = getOPdata( buf, addr );
@@ -2646,7 +2670,7 @@ int tablechk6502(uchar *buf,ulong base,ulong addr,char *stream)
 ------------------------------------------------------------------------------*/
 void printhelp( void )
 {
-	printf("Manbow-J Disassembler for Z80.  Version 0.06 + 02\n"
+	printf("Manbow-J Disassembler for Z80.  Version 0.08\n"
 	       "Original by Minachun Disassembler Version 0.04\n"
 	       "Usage:mdZ80.exe [input file] [output file] [options]\n"
 #ifdef MESSAGETYPE_JAPANESE
@@ -2661,15 +2685,16 @@ void printhelp( void )
 	       "                     ファイルの先頭、つまり 0 。\n"
 	       "            -m??...マッパー番号を指定します。デフォルトでは、マッパー別の\n"
 	       "                   コメントを出力しません。最大8つまで複数の指定が可能です。\n"
-//	       "                   Ex) -m0 ... Sega Master System\n"
-//	       "                       -m1 ... MSX\n"
-//	       "                       -m2 ... PC-8801\n"
+	       "                   Ex) -m0 ... Sega Master System\n"
+	       "                       -m1 ... MSX\n"
+	       "                       -m2 ... NEC PC-8801\n"
+	       "                       -m3 ... Coleco Vision\n"
 	       "            -ni   ...数値をインテル形式(0nnnnH)で出力する。\n"
 	       "            -nm   ...数値をモトローラ形式($nnnn)で出力する。\n"
 	       "            -nc   ...数値をC言語形式(0xnnnn)で出力する。\n"
 	       "            -r    ...RST38Hが連続してある場合単なるヌルデータとして扱う。\n"
 #else
-	       "DIsassemble regarding the input file as 6502 binary file.\n"
+	       "DIsassemble regarding the input file as Z80 binary file.\n"
 	       "[input file] : input filename want to disassemble\n"
 	       "[output file] : output filename.if don't set , output stream is stdout.\n"
 	       "[options] : -s????...Start Address of disassemble. Default is the value\n"
@@ -2681,6 +2706,9 @@ void printhelp( void )
 	       "            -m????...Mapper number.If set, output uniq comment of each mapper.\n"
 	       "                   Default is off. Multiple # is O.K. until 8 times.\n"
 	       "                   Ex) -m0 ... Sega Master System\n"
+	       "                       -m1 ... MSX\n"
+	       "                       -m2 ... NEC PC-8801\n"
+	       "                       -m3 ... Coleco Vision\n"
 	       "            -ni   ...Output numerical value by Intel form.(0nnnnH).\n"
 	       "            -nm   ...Output numerical value by Motorola form.($nnnn).\n"
 	       "            -nc   ...Output numerical value by C-Languege form.(0xnnnn).\n"
