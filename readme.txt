@@ -54,6 +54,7 @@
 	00(0)		Sega MkIII/MasterSystem/Game Gear
 	01(1)		MSX
 	02(2)		PC-8801mk2SR
+	03(3)		Coleco Vision
 
 4. 使用・配布条件
 
