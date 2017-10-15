@@ -6,8 +6,6 @@ This software was rebuilt for Z80 based on Minachun's 6205 disassembler.
 
 ## Usage
 
-Parameter numbers are all hexadecimal.
-
 > mdZ80.exe [input file] [output file] [options]
 
 **input file**
@@ -37,13 +35,17 @@ output filename.if don't set , output stream is stdout.
     -nc   ...Output numerical value by C-Languege form.(0xnnnn).
     -r    ...treated as mere null data when there is continuously RST 38H.
 
+Parameter numbers are all hexadecimal.
+
+
 ## Support Mapper
 
-|Mapper No|Type|
-|0|Sega MkIII/MasterSystem/Game Gear|
-|1|MSX|
-|2|PC-8801mk2SR|
-|3|Coleco Vision|
+| Mapper No|Type|
+----|---- 
+| 0 |Sega MkIII/MasterSystem/Game Gear|
+| 1 |MSX|
+| 2 |PC-8801mkIISR|
+| 3 |Coleco Vision|
 
 ## Authors
 
