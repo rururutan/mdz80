@@ -1,45 +1,43 @@
 #ifndef MDZ80_H_
 #define MDZ80_H_
 
-/* If you comment out below semantic , this program outputs English Messages. */
-#define MESSAGETYPE_JAPANESE
+#include <stdint.h>
 
-typedef unsigned char uchar;
-typedef unsigned short ushort;
-typedef unsigned long ulong;
+/* If you comment out below semantic , this program outputs English Messages. */
+//#define MESSAGETYPE_JAPANESE
 
 typedef struct _regZ80 {
-	uchar	a[2];
-	uchar	b[2];
-	uchar	c[2];
-	uchar	d[2];
-	uchar	e[2];
-	uchar	h[2];
-	uchar	l[2];
-	ushort	ix;
-	ushort	iy;
+	uint8_t	a[2];
+	uint8_t	b[2];
+	uint8_t	c[2];
+	uint8_t	d[2];
+	uint8_t	e[2];
+	uint8_t	h[2];
+	uint8_t	l[2];
+	uint16_t	ix;
+	uint16_t	iy;
 	union {
-		uchar f;
+		uint8_t f;
 		struct {
-			uchar carry : 1;
-			uchar zero : 1;
-			uchar intr : 1;
-			uchar dec : 1;
-			uchar brk : 1;
-			uchar resv : 1;
-			uchar ovfl : 1;
-			uchar sign : 1;
+			uint8_t carry : 1;
+			uint8_t zero : 1;
+			uint8_t intr : 1;
+			uint8_t dec : 1;
+			uint8_t brk : 1;
+			uint8_t resv : 1;
+			uint8_t ovfl : 1;
+			uint8_t sign : 1;
 		};
 	} f[2];
-	ushort sp;
-	ushort pc;
+	uint16_t sp;
+	uint16_t pc;
 } regZ80;
 
 typedef struct _memargstr {
-	ushort staddr;				// 開始アドレス
-	ushort edaddr;				// 終了アドレス
+	uint16_t staddr;			// 開始アドレス
+	uint16_t edaddr;			// 終了アドレス
 	int access;					// アクセス方法のフラグ
-	char *comment;				// コメントの内容
+	const char *comment;		// コメントの内容
 } memargstr;
 
 typedef struct {

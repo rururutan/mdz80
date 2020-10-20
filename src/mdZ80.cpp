@@ -9,7 +9,7 @@
 
 #include "mdZ80.h"
 
-char	*nimonic[] = {
+const char	*nimonic[] = {
 	"db",
 	"db",
 	"ld",
@@ -82,7 +82,7 @@ char	*nimonic[] = {
 	"otdr",
 };
 
-char	*optype0[] = {
+const char	*optype0[] = {
 	"",
 	"a",
 	"b",
@@ -2432,7 +2432,7 @@ void make_word( int sw, char *buf, int num )
 /*------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------*/
-disZ80data *getOPdata( uchar *buf, ulong addr )
+disZ80data *getOPdata( uint8_t *buf, uint32_t addr )
 {
 	int	ofstbl[] = { 0, 1, 3 };
 	int	n = 0, ofs = 0;
@@ -2448,7 +2448,7 @@ disZ80data *getOPdata( uchar *buf, ulong addr )
 /*------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------*/
-int disasmZ80( uchar *buf, ulong base, ulong addr, char *stream, int sw, int nullcheck )
+int disasmZ80( uint8_t *buf, uint32_t base, uint32_t addr, char *stream, int sw, int nullcheck )
 {
 	disZ80data	*data;
 	int		i, st;
@@ -2584,7 +2584,7 @@ int disasmZ80( uchar *buf, ulong base, ulong addr, char *stream, int sw, int nul
 /*------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------*/
-void comchkZ80( uchar *buf, ulong base, ulong addr, char *stream, int mapper[] )
+void comchkZ80( uint8_t *buf, uint32_t base, uint32_t addr, char *stream, int mapper[] )
 {
 	// コメント付加
 	int i, abs, io;
@@ -2631,7 +2631,7 @@ void comchkZ80( uchar *buf, ulong base, ulong addr, char *stream, int mapper[] )
 }
 
 #if 0
-int tablechk6502(uchar *buf,ulong base,ulong addr,char *stream)
+int tablechk6502(uint8_t *buf,uint32_t base,uint32_t addr,char *stream)
 {
 	// 特殊テーブルのチェック
 	int ret;
@@ -2724,9 +2724,8 @@ void printhelp( void )
 int main(int argc,char *argv[])
 {
 	FILE *f, *g;
-	uchar *buf;
 	size_t siz;
-	ulong base, addr;
+	uint32_t base, addr;
 	int	nullcheck = 0;
 	int i,j;
 	int	sw = INTEL;
@@ -2763,7 +2762,7 @@ int main(int argc,char *argv[])
 						sscanf(&argv[i][2],"%x",&base);
 						break;
 					case 'l':
-						sscanf(&argv[i][2],"%x",&siz);
+						sscanf(&argv[i][2],"%zx",&siz);
 						break;
 					case 'o':
 						sscanf(&argv[i][2],"%x",&j);
@@ -2817,9 +2816,9 @@ int main(int argc,char *argv[])
 			i++;
 		}
 		// ベースアドレスの調整
-		if ( base == 0xffffffff ) base = 0x10000 - siz;
+		if ( base == 0xffffffff ) base = 0x10000u - uint32_t(siz);
 		// メモリを確保して読み込む
-		buf = new uchar[siz+2];
+		uint8_t *buf = new uint8_t[siz+2];
 		fseek( f, j, SEEK_SET );
 		siz = fread( buf, 1, siz, f );
 		fclose( f );
@@ -2827,7 +2826,7 @@ int main(int argc,char *argv[])
 		buf[siz] = 0xff;
 		buf[siz+1] = 0xff;
 #ifdef MESSAGETYPE_JAPANESE
-		printf("逆アセンブル範囲:%04X - %04X\n",base,base+siz-1);
+		printf("逆アセンブル範囲:%04X - %04X\n",base,base+uint32_t(siz)-1);
 #else
 		printf("Disassemble renge:%04X - %04X\n",base,base+siz-1);
 #endif
